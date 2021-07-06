@@ -1,4 +1,4 @@
-# deepfake
+# Deepfake Detection
 Instructions to run the code for Training and Testing the proposed method on Google Cloud Platform's DeepLearningVM:
 An account needs to be set up in Google Cloud Platform to access their GPU servers. Once the DeepLearningVM is created 
 and deployed successfully, follow the following steps:
@@ -11,7 +11,7 @@ and deployed successfully, follow the following steps:
 4. Clone the git repository by running the next cell.
 5. Change the working directory to deepfake-detection.
 ## Datasets and Preprocessing
-Deepfake TIMIT
+### Deepfake TIMIT
 https://www.idiap.ch/dataset/deepfaketimit
 
 deepfakeTIMIT dataset consists of videos. So, to split video by frame, run this command.
@@ -29,7 +29,7 @@ csvdir : directory for saving csv file. (our csvdir has 2 subdirectory train, va
 
 python TIMIT_data_process.py --imgdir /root/data/deepfakeTIMIT --csvdir /root/csv
 
-UADFV
+### UADFV
 https://drive.google.com/drive/u/0/folders/1GEk1DSxmlV_61JtpEGzC9Fo_BffvyxpH
 
 This dataset contains 98 videos, which having 49 real videos and 49 fake videos respectively.
@@ -44,8 +44,8 @@ dir : image directory which has split images.
 
 python UADFV_data_process.py --dir /root/data/UADFV
 
-Usage
-Train
+## Usage
+### Train
 In the command shown at below, you can add arguments before the 'csv' to control the training condition and add arguments after the 'csv' to handle the data that you want to use for training. Since there are too much arguments for control training condition, several necessary arguments will be introduced here.
 
 Controlling training condition
@@ -57,7 +57,7 @@ handling data for training
 
 The first argument after 'csv' is training csv file directory for training which are usually placed in 'csv/train' directory. Also, argument 'val-annotations' is validation csv file directory used in training which are usually placed in 'csv/val' directry.
 
-Test
+### Test
 You can load some pretrained model and check the accuracy for that pretrained model to test thee performance of trained model.
 
 Since our data processing part don't support high-resolution image, the recommended input images' width and height should be less than 700px. Followings are several arguments that can be changed by training conditions and evaluation condition.
