@@ -16,7 +16,10 @@ Follow the following instructions or run the cells in a serial order to execute 
 ## Datasets and Preprocessing
 ### Deepfake TIMIT
 The dataset can be downloaded from here:
-https://www.idiap.ch/dataset/deepfaketimit
+https://www.idiap.ch/dataset/deepfaketimit.
+
+Extract the files using:
+!tar -xvf ./DeepfakeTIMIT.tar.gz 
 
 deepfakeTIMIT dataset consists of videos. So, to split video by frame, run this command.
 
@@ -26,7 +29,7 @@ viddir : directory which has deepfakeTIMIT dataset.
 
 Create these directories before running the following code:
 
-python TIMIT_data_process.py --imgdir /root/data/deepfakeTIMIT --viddir /root/rawData/DeepfakeTIMIT --split True
+!python ./dataProcess/TIMIT_data_process.py --imgdir ./deepfake_detection/deepfakeTIMIT --viddir ./deepfake_detection/rawData/DeepfakeTIMIT --split True
 
 Finally, to make csv file, run this command. CSV files are used to fetch the extracted frames for training and evaluation purposes.
 
@@ -34,7 +37,7 @@ imgdir : image directory which has split images.
 
 csvdir : directory for saving csv file. (our csvdir - 'csv' has 2 subdirectory train, val)
 
-python TIMIT_data_process.py --imgdir /root/data/deepfakeTIMIT --csvdir /root/csv
+!python ./dataProcess/TIMIT_data_process.py --imgdir ./deepfake_detection/deepfakeTIMIT --csvdir ./deepfake_detection/csv
 
 ### UADFV
 The dataset can be downloaded from the following link:
@@ -44,14 +47,14 @@ This dataset contains 98 videos, which having 49 real videos and 49 fake videos 
 
 To split video into frame, create UADFV folder in /root/data and create fake, real folder in it. To save split image, and run the following commands:
 
-python spliter.py _ /root/data/UADFV/fake True /root/rawData/UADFV/fake
-python spliter.py _ /root/data/UADFV/real True /root/rawData/UADFV/real
+!python spliter.py _ ./deepfake_detection/UADFV/real True ./deepfake_detection/rawData/UADFV/real
+!python spliter.py _ ./deepfake_detection/UADFV/fake True ./deepfake_detection/rawData/UADFV/fake
 
 To make csv file, run this command.
 
 dir : image directory which has split images.
 
-python UADFV_data_process.py --dir /root/data/UADFV
+!python ./dataProcess/UADFV_data_process.py --dir ./deepfake_detection/UADFV 
 
 ## Usage
 ### Train
@@ -66,7 +69,7 @@ handling data for training
 
 The first argument after 'csv' is training csv file directory for training which are usually placed in 'csv/train' directory. Also, argument 'val-annotations' is validation csv file directory used in training which are usually placed in 'csv/val' directry.
 
-python -u train.py --model vgg16 csv /root/csv/train/train.csv --val-annotations=/root/csv/val/validation.csv >> vgg16.log
+!python -u train.py --model vgg16 csv ./deepfake_detection/csv/train/UADFV_train.csv --val-annotations=./deepfake_detection/csv/val/validation.csv >> vgg16.log
 
 ### Test
 Pretrained Model can be found here for evaluation of the VGG16 model: https://drive.google.com/drive/folders/1RaMBoR-QKdS-Livd3nEib9S7dd-9ACx9?usp=sharing.
