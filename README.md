@@ -69,7 +69,8 @@ The first argument after 'csv' is training csv file directory for training which
 python -u train.py --model vgg16 csv /root/csv/train/train.csv --val-annotations=/root/csv/val/validation.csv >> vgg16.log
 
 ### Test
-Pretrained Model can be found here for evaluation of the VGG16 model: https://drive.google.com/drive/folders/1RaMBoR-QKdS-Livd3nEib9S7dd-9ACx9?usp=sharing
+Pretrained Model can be found here for evaluation of the VGG16 model: https://drive.google.com/drive/folders/1RaMBoR-QKdS-Livd3nEib9S7dd-9ACx9?usp=sharing.
+
 Following are several arguments that can be changed by training conditions and evaluation condition.
 
 model: Model name, set as resnet50 as default.
