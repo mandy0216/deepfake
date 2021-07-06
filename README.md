@@ -10,8 +10,12 @@ and deployed successfully, follow the following steps:
 3. Run the next three cells to install tensorflow-gpu, tensorflow latest version and keras upgrade.
 4. Clone the git repository by running the next cell.
 5. Change the working directory to deepfake-detection.
+
+Follow the following instructions or run the cells in a serial order to execute the operation mentioned as a comment (#...) in the beginning of each cell.
+
 ## Datasets and Preprocessing
 ### Deepfake TIMIT
+The dataset can be downloaded from here:
 https://www.idiap.ch/dataset/deepfaketimit
 
 deepfakeTIMIT dataset consists of videos. So, to split video by frame, run this command.
@@ -20,24 +24,29 @@ imgdir : image directory for saving split image.
 
 viddir : directory which has deepfakeTIMIT dataset.
 
+Create these directories before running the following code:
+
 python TIMIT_data_process.py --imgdir /root/data/deepfakeTIMIT --viddir /root/rawData/DeepfakeTIMIT --split True
-Finally, to make csv file, run this command.
+
+Finally, to make csv file, run this command. CSV files are used to fetch the extracted frames for training and evaluation purposes.
 
 imgdir : image directory which has split images.
 
-csvdir : directory for saving csv file. (our csvdir has 2 subdirectory train, val)
+csvdir : directory for saving csv file. (our csvdir - 'csv' has 2 subdirectory train, val)
 
 python TIMIT_data_process.py --imgdir /root/data/deepfakeTIMIT --csvdir /root/csv
 
 ### UADFV
+The dataset can be downloaded from the following link:
 https://drive.google.com/drive/u/0/folders/1GEk1DSxmlV_61JtpEGzC9Fo_BffvyxpH
 
 This dataset contains 98 videos, which having 49 real videos and 49 fake videos respectively.
 
-To split video into frame, create UADFV folder in /root/data and create fake, real folder in it. and to save split image, and you have to run below command.
+To split video into frame, create UADFV folder in /root/data and create fake, real folder in it. To save split image, and run the following commands:
 
 python spliter.py _ /root/data/UADFV/fake True /root/rawData/UADFV/fake
 python spliter.py _ /root/data/UADFV/real True /root/rawData/UADFV/real
+
 To make csv file, run this command.
 
 dir : image directory which has split images.
@@ -46,21 +55,22 @@ python UADFV_data_process.py --dir /root/data/UADFV
 
 ## Usage
 ### Train
-In the command shown at below, you can add arguments before the 'csv' to control the training condition and add arguments after the 'csv' to handle the data that you want to use for training. Since there are too much arguments for control training condition, several necessary arguments will be introduced here.
+In the command shown below, arguments can be added before the 'csv' to control the training conditions and after the 'csv' to handle the data that is to be used for training. Some necessary arguments are introduced here to understand the working of the code:
 
-Controlling training condition
+**Controlling training condition**
 
-model: Model name, set as resnet50 as default. To add other models for training, you should make model in "deepfake-detection/models" directory.
+model: Model name, set as resnet50 as default. To add other models for training, you should make model in "deepfake_detection/models" directory.
 snapshot: The pretrained model's directory used for resume training from the save point of previous experiments.
 tensorboard-dir: log directory for tensorboard outputs. Set as './logs' as default.
 handling data for training
 
 The first argument after 'csv' is training csv file directory for training which are usually placed in 'csv/train' directory. Also, argument 'val-annotations' is validation csv file directory used in training which are usually placed in 'csv/val' directry.
 
-### Test
-You can load some pretrained model and check the accuracy for that pretrained model to test thee performance of trained model.
+python -u train.py --model vgg16 csv /root/csv/train/train.csv --val-annotations=/root/csv/val/validation.csv >> vgg16.log
 
-Since our data processing part don't support high-resolution image, the recommended input images' width and height should be less than 700px. Followings are several arguments that can be changed by training conditions and evaluation condition.
+### Test
+Pretrained Model can be found here for evaluation of the VGG16 model: https://drive.google.com/drive/folders/1RaMBoR-QKdS-Livd3nEib9S7dd-9ACx9?usp=sharing
+Following are several arguments that can be changed by training conditions and evaluation condition.
 
 model: Model name, set as resnet50 as default.
 batch-size: Size of batches used for data processing.
