@@ -83,4 +83,4 @@ These seven arguments should be added in front of csv in below code and these ar
 
 The two arguments after csv in below code are evaluation csv data path and pretrained weight at certain epoch, respectively.
 
-python evaluate.py csv ./csv/val/validation.csv ./deepfake_detection/snapshots/vgg16_csv_25.h5
+!python evaluate.py csv ./deepfake_detection/csv/val/UADFV_val.csv ./deepfake_detection/snapshots/vgg16_csv_25.h5
